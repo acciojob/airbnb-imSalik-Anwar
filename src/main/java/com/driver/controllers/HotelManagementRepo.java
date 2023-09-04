@@ -17,7 +17,7 @@ public class HotelManagementRepo {
     TreeMap<String, Hotel> hotelDB = new TreeMap<>();
     HashMap<Integer, User> userDB = new HashMap<>();
     HashMap<String, Booking> bookingDB = new HashMap<>();
-    HashMap<Integer, List<Booking>> personBookingDB = new HashMap<>();
+    HashMap<Integer, Integer> personBookingDB = new HashMap<>();
     public String addHotel(Hotel hotel) {
         if(hotel.getHotelName() == null || hotelDB.containsKey(hotel.getHotelName()) || hotel == null){
             return "FAILURE";
@@ -34,7 +34,7 @@ public class HotelManagementRepo {
         int maxFacilities = 0;
         String hotelWithMostFacilities = "";
         for(String hotelName : hotelDB.keySet()){
-            int numberOfFacilities = hotelDB.get(hotelName).getSize();
+            int numberOfFacilities = hotelDB.get(hotelName).getSize(); // getSize returns the size of facilities list of a hotel
             if(numberOfFacilities > maxFacilities){
                 maxFacilities = numberOfFacilities;
                 hotelWithMostFacilities = hotelName;
@@ -53,14 +53,13 @@ public class HotelManagementRepo {
                 booking.setAmountToBePaid(amountToBePaid);
                 hotelDB.get(hotelName).setAvailableRooms(hotelDB.get(hotelName).getAvailableRooms() - booking.getNoOfRooms());
                 bookingDB.put(booking.getBookingId(), booking);
-                if(!personBookingDB.containsKey(booking.getBookingAadharCard())){
-                    personBookingDB.put(booking.getBookingAadharCard(), new ArrayList<>());
-                    personBookingDB.get(booking.getBookingAadharCard()).add(booking);
-                } else {
-                    if(!personBookingDB.get(booking.getBookingAadharCard()).contains(booking)){
-                        personBookingDB.get(booking.getBookingAadharCard()).add(booking);
-                    }
-                }
+//                if(!personBookingDB.containsKey(booking.getBookingAadharCard())){
+//                    personBookingDB.put(booking.getBookingAadharCard(), new ArrayList<>());
+//                    personBookingDB.get(booking.getBookingAadharCard()).add(booking);
+//                } else {
+//                    personBookingDB.get(booking.getBookingAadharCard()).add(booking);
+//                }
+                personBookingDB.put(booking.getBookingAadharCard(), personBookingDB.getOrDefault(booking.getBookingAadharCard(), 0) + 1);
                 return amountToBePaid;
             }
         }
@@ -68,7 +67,7 @@ public class HotelManagementRepo {
     }
 
     public int getBookings(Integer aadharCard) {
-        return personBookingDB.get(aadharCard).size();
+        return personBookingDB.get(aadharCard);
     }
 
 
@@ -80,6 +79,7 @@ public class HotelManagementRepo {
                 oldFacilities.add(f);
             }
         }
+        hotelDB.put(hotelName, )
         return hotel;
     }
 }

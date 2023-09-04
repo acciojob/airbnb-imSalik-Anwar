@@ -33,11 +33,11 @@ public class HotelManagementRepo {
     public String getHotelWithMostFacilities() {
         int maxFacilities = 0;
         String hotelWithMostFacilities = "";
-        for(String hotelName : hotelDB.keySet()){
-            int numberOfFacilities = hotelDB.get(hotelName).getSize(); // getSize returns the size of facilities list of a hotel
+        for(Hotel hotel : hotelDB.values()){
+            int numberOfFacilities = hotel.getFacilities().size();
             if(numberOfFacilities > maxFacilities){
                 maxFacilities = numberOfFacilities;
-                hotelWithMostFacilities = hotelName;
+                hotelWithMostFacilities = hotel.getHotelName();
             }
         }
         if(hotelWithMostFacilities.isEmpty()) {
@@ -53,12 +53,6 @@ public class HotelManagementRepo {
                 booking.setAmountToBePaid(amountToBePaid);
                 hotelDB.get(hotelName).setAvailableRooms(hotelDB.get(hotelName).getAvailableRooms() - booking.getNoOfRooms());
                 bookingDB.put(booking.getBookingId(), booking);
-//                if(!personBookingDB.containsKey(booking.getBookingAadharCard())){
-//                    personBookingDB.put(booking.getBookingAadharCard(), new ArrayList<>());
-//                    personBookingDB.get(booking.getBookingAadharCard()).add(booking);
-//                } else {
-//                    personBookingDB.get(booking.getBookingAadharCard()).add(booking);
-//                }
                 personBookingDB.put(booking.getBookingAadharCard(), personBookingDB.getOrDefault(booking.getBookingAadharCard(), 0) + 1);
                 return amountToBePaid;
             }
@@ -80,7 +74,7 @@ public class HotelManagementRepo {
             }
         }
         hotel.setFacilities(oldFacilities);
-        hotelDB.put(hotelName,hotel);
+        hotelDB.put(hotelName, hotel);
         return hotel;
     }
 }

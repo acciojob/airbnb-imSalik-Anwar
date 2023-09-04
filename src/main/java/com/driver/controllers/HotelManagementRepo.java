@@ -19,10 +19,7 @@ public class HotelManagementRepo {
     HashMap<String, Booking> bookingDB = new HashMap<>();
     HashMap<Integer, List<Booking>> personBookingDB = new HashMap<>();
     public String addHotel(Hotel hotel) {
-        if(hotel.getHotelName() == null|| hotel == null){
-            return "";
-        }
-        if(hotelDB.containsKey(hotel.getHotelName())){
+        if(hotel.getHotelName() == null || hotelDB.containsKey(hotel.getHotelName()) || hotel == null){
             return "FAILURE";
         }
         hotelDB.put(hotel.getHotelName(), hotel);
@@ -60,7 +57,9 @@ public class HotelManagementRepo {
                     personBookingDB.put(booking.getBookingAadharCard(), new ArrayList<>());
                     personBookingDB.get(booking.getBookingAadharCard()).add(booking);
                 } else {
-                    personBookingDB.get(booking.getBookingAadharCard()).add(booking);
+                    if(!personBookingDB.get(booking.getBookingAadharCard()).contains(booking)){
+                        personBookingDB.get(booking.getBookingAadharCard()).add(booking);
+                    }
                 }
                 return amountToBePaid;
             }

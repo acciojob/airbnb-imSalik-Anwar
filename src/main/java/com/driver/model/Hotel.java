@@ -11,12 +11,14 @@ public class Hotel {
     private List<Facility> facilities;
 
     private int pricePerNight;
+    private int size;
 
     public Hotel(String hotelName, int availableRooms, List<Facility> facilities, int pricePerNight) {
         this.hotelName = hotelName;
         this.availableRooms = availableRooms;
         this.facilities = facilities;
         this.pricePerNight = pricePerNight;
+        this.size = facilities.size();
     }
 
     public String getHotelName() {
@@ -50,5 +52,13 @@ public class Hotel {
 
     public void setPricePerNight(int pricePerNight) {
         this.pricePerNight = pricePerNight;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
     }
 }

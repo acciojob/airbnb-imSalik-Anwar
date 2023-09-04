@@ -31,19 +31,36 @@ public class HotelManagementRepo {
         return user.getaadharCardNo();
     }
     public String getHotelWithMostFacilities() {
-        int maxFacilities = 0;
-        String hotelWithMostFacilities = "";
-        for(Hotel hotel : hotelDB.values()){
-            int numberOfFacilities = hotel.getFacilities().size();
-            if(numberOfFacilities > maxFacilities){
-                maxFacilities = numberOfFacilities;
-                hotelWithMostFacilities = hotel.getHotelName();
+//        int maxFacilities = 0;
+//        String hotelWithMostFacilities = "";
+//        for(Hotel hotel : hotelDB.values()){
+//            int numberOfFacilities = hotel.getFacilities().size();
+//            if(numberOfFacilities > maxFacilities){
+//                maxFacilities = numberOfFacilities;
+//                hotelWithMostFacilities = hotel.getHotelName();
+//            }
+//        }
+//        if(hotelWithMostFacilities.isEmpty()) {
+//            return "";
+//        }
+//        return hotelWithMostFacilities;
+        int facilities = 0;
+
+        String hotelName = "";
+
+        for(Hotel hotel:hotelDB.values()){
+
+            if(hotel.getFacilities().size()>facilities){
+                facilities = hotel.getFacilities().size();
+                hotelName = hotel.getHotelName();
+            }
+            else if(hotel.getFacilities().size()==facilities){
+                if(hotel.getHotelName().compareTo(hotelName)<0){
+                    hotelName = hotel.getHotelName();
+                }
             }
         }
-        if(hotelWithMostFacilities.isEmpty()) {
-            return "";
-        }
-        return hotelWithMostFacilities;
+        return hotelName;
     }
     public int bookARoom(Booking booking) {
         String hotelName = booking.getHotelName();

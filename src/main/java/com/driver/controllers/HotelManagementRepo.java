@@ -79,7 +79,8 @@ public class HotelManagementRepo {
                 oldFacilities.add(f);
             }
         }
-//        hotelDB.put(hotelName, )
+        hotel.setFacilities(oldFacilities);
+        hotelDB.put(hotelName,hotel);
         return hotel;
     }
 }

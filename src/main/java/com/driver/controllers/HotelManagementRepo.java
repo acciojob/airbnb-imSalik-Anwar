@@ -43,9 +43,6 @@ public class HotelManagementRepo {
                 hotelWithMostFacilities = hotelName;
             }
         }
-        if(hotelWithMostFacilities.isEmpty()) {
-            return "";
-        }
         return hotelWithMostFacilities;
     }
     public int bookARoom(Booking booking) {

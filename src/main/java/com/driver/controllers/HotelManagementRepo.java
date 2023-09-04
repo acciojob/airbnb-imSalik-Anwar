@@ -19,7 +19,7 @@ public class HotelManagementRepo {
     HashMap<String, Booking> bookingDB = new HashMap<>();
     HashMap<Integer, List<Booking>> personBookingDB = new HashMap<>();
     public String addHotel(Hotel hotel) {
-        if(hotel.getHotelName() == null || hotelDB.containsKey(hotel.getHotelName())){
+        if(hotel.getHotelName() == null || hotelDB.containsKey(hotel.getHotelName()) || hotel == null){
             return "FAILURE";
         }
         hotelDB.put(hotel.getHotelName(), hotel);
